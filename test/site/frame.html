@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AIHound iframe case</title>
+  <style>
+    body { margin: 0; background: transparent; }
+    img, video { display: block; width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+  <script>
+    const el = location.hash === '#video'
+      ? Object.assign(document.createElement('video'), { muted: true, autoplay: true, loop: true, playsInline: true, src: 'fixtures/ai-red.mp4' })
+      : Object.assign(document.createElement('img'), { alt: '', src: 'fixtures/ai-red.jpg' });
+    document.body.append(el);
+  </script>
+</body>
+</html>

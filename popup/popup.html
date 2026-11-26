@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AIHound</title>
+  <style>
+    :root { color-scheme: light dark; --fg: #1d1d21; --bg: #fff; --muted: #666a73; --accent: #d7263d; }
+    @media (prefers-color-scheme: dark) { :root { --fg: #ececf0; --bg: #222226; --muted: #9a9ca5; } }
+    body { margin: 0; width: 280px; padding: 14px; background: var(--bg); color: var(--fg); font: 13px/1.5 system-ui, sans-serif; }
+    h1 { margin: 0 0 10px; font-size: 16px; color: var(--accent); }
+    label { display: flex; align-items: center; gap: 8px; margin: 6px 0; }
+    select { margin-left: auto; font: inherit; }
+    .stats { margin: 12px 0 8px; color: var(--muted); }
+    .error { color: var(--accent); word-break: break-word; }
+    a { color: inherit; }
+  </style>
+</head>
+<body>
+  <h1>AIHound</h1>
+  <label><input type="checkbox" id="enabled"> Enabled</label>
+  <label><input type="checkbox" id="site"> Enabled on <span id="host">this site</span></label>
+  <label>Action
+    <select id="action">
+      <option value="watermark">Watermark</option>
+      <option value="blank">Blank out</option>
+    </select>
+  </label>
+  <div class="stats" id="stats"></div>
+  <div class="error" id="error"></div>
+  <a href="#" id="options">Options…</a>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

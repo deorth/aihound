@@ -1,0 +1,7 @@
+/* Applied directly to the media element; the overlay itself lives in a shadow root. */
+[data-aihound="pending"] {
+  filter: blur(24px) grayscale(1) !important;
+}
+[data-aihound="blank"] {
+  filter: blur(40px) !important;
+}

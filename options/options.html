@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>AIHound options</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <main>
+    <h1>AIHound</h1>
+    <form id="form">
+      <section>
+        <h2>General</h2>
+        <label class="row"><input type="checkbox" name="enabled"> Enabled</label>
+        <label class="row">When media looks AI-generated:
+          <select name="action">
+            <option value="watermark">Watermark it</option>
+            <option value="blank">Blank it out (click to reveal)</option>
+          </select>
+        </label>
+        <label class="row">Threshold: <input type="range" name="threshold" min="0.5" max="0.99" step="0.01"> <output id="thresholdOut"></output></label>
+        <label class="row"><input type="checkbox" name="hideUntilChecked"> Blur images while they are being checked</label>
+        <label class="row">Ignore media smaller than <input type="number" name="minSize" min="16" max="2000" step="1"> px</label>
+        <label class="row"><input type="checkbox" name="checkVideos"> Check videos (screen-captures frames of visible videos)</label>
+        <label class="row">Frames to sample per video <input type="number" name="videoSamples" min="1" max="10" step="1"></label>
+      </section>
+
+      <section>
+        <h2>Detection</h2>
+        <label class="row"><input type="checkbox" name="metadataFirst"> Check embedded provenance metadata first (free, offline)</label>
+        <label class="row">Provider:
+          <select name="provider">
+            <option value="sightengine">Sightengine</option>
+            <option value="hive">Hive</option>
+            <option value="custom">Custom / self-hosted endpoint</option>
+            <option value="metadata">Metadata only (no network calls)</option>
+            <option value="mock">Mock (testing: red = AI, green = real)</option>
+          </select>
+        </label>
+
+        <fieldset data-provider="sightengine">
+          <legend>Sightengine</legend>
+          <label>API user <input type="text" name="sightengine.apiUser" autocomplete="off"></label>
+          <label>API secret <input type="password" name="sightengine.apiSecret" autocomplete="off"></label>
+        </fieldset>
+        <fieldset data-provider="hive">
+          <legend>Hive</legend>
+          <label>API key <input type="password" name="hive.apiKey" autocomplete="off"></label>
+        </fieldset>
+        <fieldset data-provider="custom">
+          <legend>Custom endpoint</legend>
+          <p class="hint">Receives the image bytes as a POST body and must return <code>{"score": 0..1}</code>.</p>
+          <label>URL <input type="url" name="custom.endpoint"></label>
+          <label>Header name <input type="text" name="custom.headerName" placeholder="Authorization"></label>
+          <label>Header value <input type="password" name="custom.headerValue" autocomplete="off"></label>
+        </fieldset>
+        <p class="hint" data-provider="metadata">Only flags media whose metadata declares it AI-generated. Cannot check videos.</p>
+        <p class="hint" data-provider="mock">For the local test page in <code>test/</code>. Scores by average colour.</p>
+      </section>
+
+      <section>
+        <h2>Disabled sites</h2>
+        <textarea name="disabledSites" rows="5" placeholder="one hostname per line, e.g. www.example.com"></textarea>
+      </section>
+
+      <div class="actions">
+        <button type="submit">Save</button>
+        <button type="button" id="clearCache">Clear cache &amp; stats</button>
+        <span id="status" role="status"></span>
+      </div>
+      <p class="hint">Keys are stored only in this browser profile (chrome.storage.local). Media is sent to the selected provider for scoring.</p>
+    </form>
+  </main>
+  <script type="module" src="options.js"></script>
+</body>
+</html>

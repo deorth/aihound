@@ -1,0 +1,107 @@
+# Labelled real-world samples for testing an actual detector.
+#
+#   ai   <url>    known AI-generated
+#   real <url>    known real (camera) image
+#
+# `python3 test/make_fixtures.py --fetch` downloads them into
+# test/site/fixtures/external/{ai,real}/ (git-ignored). Then:
+#   node test/accuracy.mjs                     # score them with the local detector
+#   node test/accuracy.mjs --provider sightengine
+# You can also drop files straight into those folders. Check each file's licence before sharing.
+#
+# Good sources: Wikimedia Commons "Category:AI-generated images" (licence on each file page),
+# images you generate yourself, and your own camera photos.
+
+# ---- Wikimedia Commons samples (test/commons_samples.py) ----
+# Adobe Firefly AI | File:Adobe Firefly generated landscape photography.jpg | Adobe Firefly Image 3, prompted by Jiří Vedral | Public domain | https://commons.wikimedia.org/wiki/File:Adobe_Firefly_generated_landscape_photography.jpg
+ai https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ab/Adobe_Firefly_generated_landscape_photography.jpg/1920px-Adobe_Firefly_generated_landscape_photography.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# Adobe Firefly AI | File:Adobe Firefly generated typography logo.jpg | Adobe Firefly Image 3, prompted by Jiří Vedral | Public domain | https://commons.wikimedia.org/wiki/File:Adobe_Firefly_generated_typography_logo.jpg
+ai https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Adobe_Firefly_generated_typography_logo.jpg/1920px-Adobe_Firefly_generated_typography_logo.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# ChatGPT | File:Musée Louvre-Lens Dyptique 18 prophétes (Constantinople).JPG | ChatGPT artificial intelligence; prompted by Pierre André | Public domain | https://commons.wikimedia.org/wiki/File:Mus%C3%A9e_Louvre-Lens_Dyptique_18_proph%C3%A9tes_(Constantinople).JPG
+ai https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Mus%C3%A9e_Louvre-Lens_Dyptique_18_proph%C3%A9tes_%28Constantinople%29.JPG/1920px-Mus%C3%A9e_Louvre-Lens_Dyptique_18_proph%C3%A9tes_%28Constantinople%29.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# ChatGPT | File:Musée Louvre-Lens.- Sculpture provenant du fronton d'un temple (1).jpg | ChatGPT artificial intelligence; prompted by Pierre André | Public domain | https://commons.wikimedia.org/wiki/File:Mus%C3%A9e_Louvre-Lens.-_Sculpture_provenant_du_fronton_d%27un_temple_(1).jpg
+ai https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7f/Mus%C3%A9e_Louvre-Lens.-_Sculpture_provenant_du_fronton_d%27un_temple_%281%29.jpg/1920px-Mus%C3%A9e_Louvre-Lens.-_Sculpture_provenant_du_fronton_d%27un_temple_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# DALL-E | File:A golden skin lady wearing ornamental heads and golden ornaments on her body standing in a lake.jpg | Encik Tekateki | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:A_golden_skin_lady_wearing_ornamental_heads_and_golden_ornaments_on_her_body_standing_in_a_lake.jpg
+ai https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5f/A_golden_skin_lady_wearing_ornamental_heads_and_golden_ornaments_on_her_body_standing_in_a_lake.jpg/1920px-A_golden_skin_lady_wearing_ornamental_heads_and_golden_ornaments_on_her_body_standing_in_a_lake.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# DALL-E | File:Comparison between Dall-E2 and Stable Diffusion.png | Dall-E2 and Stable Diffusion | Public domain | https://commons.wikimedia.org/wiki/File:Comparison_between_Dall-E2_and_Stable_Diffusion.png
+ai https://upload.wikimedia.org/wikipedia/commons/8/8c/Comparison_between_Dall-E2_and_Stable_Diffusion.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+# Flux (text-to-image model) | File:Scenic Forest Valley in the Late Afternoon (FLUX.1).jpg | VulcanSphere | Public domain | https://commons.wikimedia.org/wiki/File:Scenic_Forest_Valley_in_the_Late_Afternoon_(FLUX.1).jpg
+ai https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ed/Scenic_Forest_Valley_in_the_Late_Afternoon_%28FLUX.1%29.jpg/1920px-Scenic_Forest_Valley_in_the_Late_Afternoon_%28FLUX.1%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# Flux (text-to-image model) | File:A professional photoshoot show a anthropomorphic rhinoceros wearing business suit standing in front of the cinema near the Broadway, New York City. The cinema had a marquee at the entrance with the text "NOW SHOWING FLUX 1.0".png | Flux 1.0 using ComfyUI | Public domain | https://commons.wikimedia.org/wiki/File:A_professional_photoshoot_show_a_anthropomorphic_rhinoceros_wearing_business_suit_standing_in_front_of_the_cinema_near_the_Broadway,_New_York_City._The_cinema_had_a_marquee_at_the_entrance_with_the_text_%22NOW_SHOWING_FLUX_1.0%22.png
+ai https://upload.wikimedia.org/wikipedia/commons/0/04/A_professional_photoshoot_show_a_anthropomorphic_rhinoceros_wearing_business_suit_standing_in_front_of_the_cinema_near_the_Broadway%2C_New_York_City._The_cinema_had_a_marquee_at_the_entrance_with_the_text_%22NOW_SHOWING_FLUX_1.0%22.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+# Gemini | File:Gemini Generated Image Example.jpg | Gemini | Public domain | https://commons.wikimedia.org/wiki/File:Gemini_Generated_Image_Example.jpg
+ai https://upload.wikimedia.org/wikipedia/commons/d/d2/Gemini_Generated_Image_Example.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+# Gemini | File:Diverse US senators from the 1800s - Gemini.png | Imagen 2 via Gemini; prompted by Adi Robertson | Public domain | https://commons.wikimedia.org/wiki/File:Diverse_US_senators_from_the_1800s_-_Gemini.png
+ai https://upload.wikimedia.org/wikipedia/commons/e/ef/Diverse_US_senators_from_the_1800s_-_Gemini.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+# Grok | File:Astronaut Riding a Horse (Grok Aurora).webp | VulcanSphere | Public domain | https://commons.wikimedia.org/wiki/File:Astronaut_Riding_a_Horse_(Grok_Aurora).webp
+ai https://upload.wikimedia.org/wikipedia/commons/b/be/Astronaut_Riding_a_Horse_%28Grok_Aurora%29.webp?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+# Grok | File:Lacuerco.jpg | Willtron | Public domain | https://commons.wikimedia.org/wiki/File:Lacuerco.jpg
+ai https://upload.wikimedia.org/wikipedia/commons/6/67/Lacuerco.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+# Imagen | File:Scenic Valley in the Afternoon (Imagen 3.0 001 model).jpg | VulcanSphere | Public domain | https://commons.wikimedia.org/wiki/File:Scenic_Valley_in_the_Afternoon_(Imagen_3.0_001_model).jpg
+ai https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b0/Scenic_Valley_in_the_Afternoon_%28Imagen_3.0_001_model%29.jpg/1920px-Scenic_Valley_in_the_Afternoon_%28Imagen_3.0_001_model%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# Imagen | File:Floral Moon Goddess (Imagen).webp | VulcanSphere | Public domain | https://commons.wikimedia.org/wiki/File:Floral_Moon_Goddess_(Imagen).webp
+ai https://upload.wikimedia.org/wikipedia/commons/0/04/Floral_Moon_Goddess_%28Imagen%29.webp?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+# Midjourney | File:Fairy Floral Tarot Card.png | Midjourney‎ AI; prompted by Esme Rome; prompted to mimic the work of Kelly McKer | Public domain | https://commons.wikimedia.org/wiki/File:Fairy_Floral_Tarot_Card.png
+ai https://upload.wikimedia.org/wikipedia/commons/a/a6/Fairy_Floral_Tarot_Card.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+# Midjourney | File:Bathingbayc a mechanical dove by beeple low camera angle cute 2daa1f69-e280-45d0-956d-8b89208ac53e.png | Midjourney | Public domain | https://commons.wikimedia.org/wiki/File:Bathingbayc_a_mechanical_dove_by_beeple_low_camera_angle_cute_2daa1f69-e280-45d0-956d-8b89208ac53e.png
+ai https://upload.wikimedia.org/wikipedia/commons/1/14/Bathingbayc_a_mechanical_dove_by_beeple_low_camera_angle_cute_2daa1f69-e280-45d0-956d-8b89208ac53e.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+# Nano Banana | File:Nano Banana - Cave Painting Rhino.png | Nano Banana | Public domain | https://commons.wikimedia.org/wiki/File:Nano_Banana_-_Cave_Painting_Rhino.png
+ai https://upload.wikimedia.org/wikipedia/commons/f/fc/Nano_Banana_-_Cave_Painting_Rhino.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+# Nano Banana | File:Nano Banana - Chalk Rhino.png | Nano Banana | Public domain | https://commons.wikimedia.org/wiki/File:Nano_Banana_-_Chalk_Rhino.png
+ai https://upload.wikimedia.org/wikipedia/commons/a/ad/Nano_Banana_-_Chalk_Rhino.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+# Stable Diffusion | File:Comparison between Dall-E2 and Stable Diffusion.png | Dall-E2 and Stable Diffusion | Public domain | https://commons.wikimedia.org/wiki/File:Comparison_between_Dall-E2_and_Stable_Diffusion.png
+ai https://upload.wikimedia.org/wikipedia/commons/8/8c/Comparison_between_Dall-E2_and_Stable_Diffusion.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+# Stable Diffusion | File:Comparison between DallE2 and Stable Diffusion.png | DALL-E2 /Stable Diffusion | Public domain | https://commons.wikimedia.org/wiki/File:Comparison_between_DallE2_and_Stable_Diffusion.png
+ai https://upload.wikimedia.org/wikipedia/commons/5/53/Comparison_between_DallE2_and_Stable_Diffusion.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+# thispersondoesnotexist.com | File:GAN Mensch StyleGAN2.png | StyleGAN2 | Public domain | https://commons.wikimedia.org/wiki/File:GAN_Mensch_StyleGAN2.png
+ai https://upload.wikimedia.org/wikipedia/commons/d/de/GAN_Mensch_StyleGAN2.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+# thispersondoesnotexist.com | File:This Person Does Not Exist example.jpg | StyleGAN2 | Public domain | https://commons.wikimedia.org/wiki/File:This_Person_Does_Not_Exist_example.jpg
+ai https://upload.wikimedia.org/wikipedia/commons/1/1c/This_Person_Does_Not_Exist_example.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled
+# camera photo | File:Busto de Castelao - Padrón - Galiza-1.jpg | Luis Miguel Bugallo Sánchez (Lmbuga) | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Busto_de_Castelao_-_Padr%C3%B3n_-_Galiza-1.jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Busto_de_Castelao_-_Padr%C3%B3n_-_Galiza-1.jpg/1920px-Busto_de_Castelao_-_Padr%C3%B3n_-_Galiza-1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:Jamestown, Accra (P1100266).jpg | Matti Blume | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Jamestown,_Accra_(P1100266).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/Jamestown%2C_Accra_%28P1100266%29.jpg/1920px-Jamestown%2C_Accra_%28P1100266%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:Aerial, Eltville (P1090690).jpg | Matti Blume | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Aerial,_Eltville_(P1090690).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Aerial%2C_Eltville_%28P1090690%29.jpg/1920px-Aerial%2C_Eltville_%28P1090690%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:German Museum of Technology, Berlin (P1031465).jpg | Matti Blume | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:German_Museum_of_Technology,_Berlin_(P1031465).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/6/61/German_Museum_of_Technology%2C_Berlin_%28P1031465%29.jpg/1920px-German_Museum_of_Technology%2C_Berlin_%28P1031465%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:Auto 2025, Zurich (20251029-P1074304).jpg | Matti Blume | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Auto_2025,_Zurich_(20251029-P1074304).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/0/05/Auto_2025%2C_Zurich_%2820251029-P1074304%29.jpg/1920px-Auto_2025%2C_Zurich_%2820251029-P1074304%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:Boquinete (Lachnolaimus maximus), San Pedro, Belice, 2025-12-18, DD 90.jpg | Diego Delso | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Boquinete_(Lachnolaimus_maximus),_San_Pedro,_Belice,_2025-12-18,_DD_90.jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Boquinete_%28Lachnolaimus_maximus%29%2C_San_Pedro%2C_Belice%2C_2025-12-18%2C_DD_90.jpg/1920px-Boquinete_%28Lachnolaimus_maximus%29%2C_San_Pedro%2C_Belice%2C_2025-12-18%2C_DD_90.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:Durham - View from Milburngate Bridge.jpg | Benjamin Smith | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Durham_-_View_from_Milburngate_Bridge.jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a4/Durham_-_View_from_Milburngate_Bridge.jpg/1920px-Durham_-_View_from_Milburngate_Bridge.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:Durham - Town hall.jpg | Benjamin Smith | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Durham_-_Town_hall.jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6c/Durham_-_Town_hall.jpg/1920px-Durham_-_Town_hall.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:Durham - University Library.jpg | Benjamin Smith | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:Durham_-_University_Library.jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7b/Durham_-_University_Library.jpg/1920px-Durham_-_University_Library.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:2026 Park w Tarnowie (1).jpg | Jacek Halicki | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:2026_Park_w_Tarnowie_(1).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/2026_Park_w_Tarnowie_%281%29.jpg/1920px-2026_Park_w_Tarnowie_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:2026 Ząbkowice Śląskie, ul. Ciasna 7 (3).jpg | Jacek Halicki | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:2026_Z%C4%85bkowice_%C5%9Al%C4%85skie,_ul._Ciasna_7_(3).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fe/2026_Z%C4%85bkowice_%C5%9Al%C4%85skie%2C_ul._Ciasna_7_%283%29.jpg/1920px-2026_Z%C4%85bkowice_%C5%9Al%C4%85skie%2C_ul._Ciasna_7_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:2026 Ząbkowice Śląskie, ul. Chrobrego 1 (5).jpg | Jacek Halicki | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:2026_Z%C4%85bkowice_%C5%9Al%C4%85skie,_ul._Chrobrego_1_(5).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ca/2026_Z%C4%85bkowice_%C5%9Al%C4%85skie%2C_ul._Chrobrego_1_%285%29.jpg/1920px-2026_Z%C4%85bkowice_%C5%9Al%C4%85skie%2C_ul._Chrobrego_1_%285%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:2026 Kłodzko, ul. Lutycka 14 (8).jpg | Jacek Halicki | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:2026_K%C5%82odzko,_ul._Lutycka_14_(8).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1c/2026_K%C5%82odzko%2C_ul._Lutycka_14_%288%29.jpg/1920px-2026_K%C5%82odzko%2C_ul._Lutycka_14_%288%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:2026 Centrum Kulturalno-Turystyczne w Złotym Stoku (3).jpg | Jacek Halicki | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_(3).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dc/2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_%283%29.jpg/1920px-2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_%283%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:2026 Centrum Kulturalno-Turystyczne w Złotym Stoku (2).jpg | Jacek Halicki | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_(2).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_%282%29.jpg/1920px-2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_%282%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:2026 Centrum Kulturalno-Turystyczne w Złotym Stoku (4).jpg | Jacek Halicki | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_(4).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_%284%29.jpg/1920px-2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_%284%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:2026 Centrum Kulturalno-Turystyczne w Złotym Stoku (5).jpg | Jacek Halicki | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_(5).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c6/2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_%285%29.jpg/1920px-2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_%285%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:2026 Centrum Kulturalno-Turystyczne w Złotym Stoku (6).jpg | Jacek Halicki | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_(6).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8c/2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_%286%29.jpg/1920px-2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_%286%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:2026 Centrum Kulturalno-Turystyczne w Złotym Stoku (7).jpg | Jacek Halicki | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_(7).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/2/2b/2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_%287%29.jpg/1920px-2026_Centrum_Kulturalno-Turystyczne_w_Z%C5%82otym_Stoku_%287%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:2026 Ratusz w Złotym Stoku (2).jpg | Jacek Halicki | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:2026_Ratusz_w_Z%C5%82otym_Stoku_(2).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c3/2026_Ratusz_w_Z%C5%82otym_Stoku_%282%29.jpg/1920px-2026_Ratusz_w_Z%C5%82otym_Stoku_%282%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:2026 Ratusz w Złotym Stoku (1).jpg | Jacek Halicki | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:2026_Ratusz_w_Z%C5%82otym_Stoku_(1).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/2026_Ratusz_w_Z%C5%82otym_Stoku_%281%29.jpg/1920px-2026_Ratusz_w_Z%C5%82otym_Stoku_%281%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:2026 Złoty Stok, pl. Kościelny 3 (5).jpg | Jacek Halicki | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:2026_Z%C5%82oty_Stok,_pl._Ko%C5%9Bcielny_3_(5).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/4/43/2026_Z%C5%82oty_Stok%2C_pl._Ko%C5%9Bcielny_3_%285%29.jpg/1920px-2026_Z%C5%82oty_Stok%2C_pl._Ko%C5%9Bcielny_3_%285%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:2026 Złoty Stok, pl. Kościelny 3 (4).jpg | Jacek Halicki | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:2026_Z%C5%82oty_Stok,_pl._Ko%C5%9Bcielny_3_(4).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/2026_Z%C5%82oty_Stok%2C_pl._Ko%C5%9Bcielny_3_%284%29.jpg/1920px-2026_Z%C5%82oty_Stok%2C_pl._Ko%C5%9Bcielny_3_%284%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail
+# camera photo | File:2026 Złoty Stok, pl. Kościelny 3 (6).jpg | Jacek Halicki | CC BY-SA 4.0 | https://commons.wikimedia.org/wiki/File:2026_Z%C5%82oty_Stok,_pl._Ko%C5%9Bcielny_3_(6).jpg
+real https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/2026_Z%C5%82oty_Stok%2C_pl._Ko%C5%9Bcielny_3_%286%29.jpg/1920px-2026_Z%C5%82oty_Stok%2C_pl._Ko%C5%9Bcielny_3_%286%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail

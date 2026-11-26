@@ -1,0 +1,178 @@
+[
+  {
+    "file": "ai-red.jpg",
+    "kind": "img",
+    "title": "Strong AI signal",
+    "expect": "flag",
+    "why": "mock score ≈ 0.91",
+    "group": "Scores"
+  },
+  {
+    "file": "ai-above.jpg",
+    "kind": "img",
+    "title": "Just above 80% threshold",
+    "expect": "flag",
+    "why": "mock score ≈ 0.85",
+    "group": "Scores"
+  },
+  {
+    "file": "ai-below.jpg",
+    "kind": "img",
+    "title": "Just below 80% threshold",
+    "expect": "pass",
+    "why": "mock score ≈ 0.75",
+    "group": "Scores"
+  },
+  {
+    "file": "real-grey.jpg",
+    "kind": "img",
+    "title": "Neutral",
+    "expect": "pass",
+    "why": "mock score ≈ 0.50",
+    "group": "Scores"
+  },
+  {
+    "file": "real-green.jpg",
+    "kind": "img",
+    "title": "Strong real signal",
+    "expect": "pass",
+    "why": "mock score ≈ 0.17",
+    "group": "Scores"
+  },
+  {
+    "file": "ai-red.png",
+    "kind": "img",
+    "title": "PNG",
+    "expect": "flag",
+    "why": "mock ≈ 0.91",
+    "group": "Formats"
+  },
+  {
+    "file": "ai-red.gif",
+    "kind": "img",
+    "title": "GIF (re-encoded before upload)",
+    "expect": "flag",
+    "why": "mock ≈ 0.91",
+    "group": "Formats"
+  },
+  {
+    "file": "ai-red.avif",
+    "kind": "img",
+    "title": "AVIF (re-encoded before upload)",
+    "expect": "flag",
+    "why": "mock ≈ 0.91",
+    "group": "Formats"
+  },
+  {
+    "file": "ai-red-large.jpg",
+    "kind": "img",
+    "title": "4000×3000 (downscaled before upload)",
+    "expect": "flag",
+    "why": "mock ≈ 0.91",
+    "group": "Formats"
+  },
+  {
+    "file": "ai-red.svg",
+    "kind": "img",
+    "title": "SVG",
+    "expect": "skip",
+    "why": "vector images are not checked",
+    "group": "Formats"
+  },
+  {
+    "file": "icon-red.png",
+    "kind": "img",
+    "title": "64×64 icon",
+    "expect": "skip",
+    "why": "below minimum size (150px)",
+    "group": "Formats"
+  },
+  {
+    "file": "meta-iptc-ai.jpg",
+    "kind": "img",
+    "title": "JPEG, XMP DigitalSourceType = trainedAlgorithmicMedia",
+    "expect": "flag",
+    "why": "metadata",
+    "group": "Metadata"
+  },
+  {
+    "file": "meta-iptc-composite.jpg",
+    "kind": "img",
+    "title": "JPEG, XMP = compositeWithTrainedAlgorithmicMedia",
+    "expect": "flag",
+    "why": "metadata",
+    "group": "Metadata"
+  },
+  {
+    "file": "meta-png-xmp-ai.png",
+    "kind": "img",
+    "title": "PNG, iTXt XMP = trainedAlgorithmicMedia",
+    "expect": "flag",
+    "why": "metadata",
+    "group": "Metadata"
+  },
+  {
+    "file": "meta-a1111.png",
+    "kind": "img",
+    "title": "PNG, Stable Diffusion (A1111) parameters",
+    "expect": "flag",
+    "why": "metadata",
+    "group": "Metadata"
+  },
+  {
+    "file": "meta-comfyui.png",
+    "kind": "img",
+    "title": "PNG, ComfyUI workflow",
+    "expect": "flag",
+    "why": "metadata",
+    "group": "Metadata"
+  },
+  {
+    "file": "meta-camera.jpg",
+    "kind": "img",
+    "title": "JPEG, XMP = digitalCapture (camera)",
+    "expect": "pass",
+    "why": "real-camera metadata must not flag",
+    "group": "Metadata"
+  },
+  {
+    "file": "ai-red.mp4",
+    "kind": "video",
+    "title": "MP4 (H.264)",
+    "expect": "flag",
+    "why": "mock ≈ 0.9",
+    "group": "Videos"
+  },
+  {
+    "file": "ai-red.webm",
+    "kind": "video",
+    "title": "WebM (VP9)",
+    "expect": "flag",
+    "why": "mock ≈ 0.9",
+    "group": "Videos"
+  },
+  {
+    "file": "real-green.mp4",
+    "kind": "video",
+    "title": "Real video",
+    "expect": "pass",
+    "why": "mock ≈ 0.2",
+    "group": "Videos"
+  },
+  {
+    "file": "switch-green-red.mp4",
+    "kind": "video",
+    "title": "Green for 3s, then red",
+    "expect": "flag",
+    "why": "flagged on the 2nd frame sample (~4s)",
+    "group": "Videos"
+  },
+  {
+    "file": "tiny-red.mp4",
+    "kind": "video",
+    "title": "128×96 video",
+    "expect": "skip",
+    "why": "below minimum size",
+    "group": "Videos"
+  }
+]

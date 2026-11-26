@@ -1,0 +1,14 @@
+{
+  "name": "aihound",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Brave/Chromium extension that blanks or watermarks likely AI-generated images and videos.",
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"test/*.test.mjs\"",
+    "fixtures": "python3 test/make_fixtures.py --fetch",
+    "serve": "python3 test/serve.py",
+    "accuracy": "node test/accuracy.mjs",
+    "detector": "server/.venv/bin/python server/hf_detector.py --port 8765"
+  }
+}

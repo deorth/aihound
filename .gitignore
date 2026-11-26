@@ -1,0 +1,7 @@
+.DS_Store
+node_modules/
+__pycache__/
+*.zip
+# third-party samples downloaded by `npm run fixtures`
+test/site/fixtures/external/
+server/.venv/

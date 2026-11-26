@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AIHound test page</title>
+  <link rel="stylesheet" href="test.css">
+</head>
+<body>
+  <header>
+    <h1>AIHound test page</h1>
+    <p>For deterministic results, open the extension's Options, choose <b>Mock</b> as the provider, keep
+      <b>Check embedded provenance metadata first</b> on, threshold <b>80%</b> and minimum size <b>150px</b>.
+      Each card says what should happen: <span class="tag flag">flag</span> overlay expected,
+      <span class="tag pass">pass</span> no overlay, <span class="tag skip">skip</span> not checked at all,
+      <span class="tag limit">limit</span> a known limitation (not handled today).</p>
+    <p>To test a real provider instead, run <code>python3 test/make_fixtures.py --fetch</code> and use the
+      <a href="#external">External samples</a> section; the coloured fixtures mean nothing to a real detector.</p>
+  </header>
+
+  <main id="groups"></main>
+
+  <section>
+    <h2>Page behaviour</h2>
+    <div class="grid" id="dynamic"></div>
+  </section>
+
+  <section id="external">
+    <h2>External samples</h2>
+    <p class="note" id="externalNote">Files in <code>fixtures/external/</code>. No expectations: these are for real providers.</p>
+    <div class="grid" id="externalGrid"></div>
+  </section>
+
+  <section>
+    <h2>Lazy-loaded (below a tall spacer)</h2>
+    <div class="spacer">scroll down ↓</div>
+    <div class="grid" id="lazy"></div>
+  </section>
+
+  <script src="test.js"></script>
+</body>
+</html>
