@@ -10,6 +10,7 @@
     "serve": "python3 test/serve.py",
     "accuracy": "node test/accuracy.mjs",
     "detector": "server/.venv/bin/python server/hf_detector.py --port 8765",
+    "detector:log": "server/.venv/bin/python server/hf_detector.py --port 8765 --log-dir server/logs",
     "bakeoff": "server/.venv/bin/python test/bakeoff.py"
   }
 }

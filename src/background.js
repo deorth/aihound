@@ -48,7 +48,7 @@ async function handle(msg, sender) {
     case 'getSettings':
       return publicSettings(await getSettings());
     case 'classifyUrl':
-      return { ok: true, ...(await track(classifyUrl(msg.url))) };
+      return { ok: true, ...(await track(classifyUrl(msg.url, sender))) };
     case 'classifyRegion':
       return { ok: true, ...(await track(classifyRegion(msg, sender))) };
     case 'count':
@@ -86,7 +86,7 @@ async function track(promise) {
 
 // ---- classification -------------------------------------------------------
 
-async function classifyUrl(url) {
+async function classifyUrl(url, sender) {
   const s = await getSettings();
   const key = await cacheKey(s, url);
   const hit = cache.get(key);
@@ -96,7 +96,7 @@ async function classifyUrl(url) {
   const p = (async () => {
     const blob = await fetchMedia(url);
     if (/svg/i.test(blob.type)) throw new Error('SVG is not supported');
-    const result = await classifyBlob(blob, s, { metadata: true });
+    const result = await classifyBlob(blob, s, { metadata: true, url, pageUrl: sender?.tab?.url, via: 'fetch' });
     remember(key, result);
     return result;
   })();
@@ -129,10 +129,10 @@ async function classifyRegion(msg, sender) {
   shot.close();
   const blob = await canvas.convertToBlob({ type: 'image/jpeg', quality: 0.95 });
   // A screenshot has no provenance metadata, so skip that check.
-  return classifyBlob(blob, s, { metadata: false });
+  return classifyBlob(blob, s, { metadata: false, url: msg.srcUrl, pageUrl: sender.tab.url, via: 'capture' });
 }
 
-async function classifyBlob(blob, s, { metadata }) {
+async function classifyBlob(blob, s, { metadata, ...ctx }) {
   if (metadata && (s.metadataFirst || s.provider === 'metadata')) {
     const detail = await detectMetadata(blob);
     if (detail) return { score: 1, source: 'metadata', detail };
@@ -141,7 +141,7 @@ async function classifyBlob(blob, s, { metadata }) {
   const provider = PROVIDERS[s.provider];
   if (!provider) throw new Error(`Unknown provider "${s.provider}"`);
   const prepared = await normalize(blob);
-  const { score } = await withSlot(() => provider(prepared, s));
+  const { score } = await withSlot(() => provider(prepared, s, ctx));
   return { score: clamp(score, 0, 1), source: s.provider };
 }
 

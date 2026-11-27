@@ -308,7 +308,7 @@
       await nextFrames(2);
       const rect = visibleRect(el);
       const res = rect
-        ? await send({ type: 'classifyRegion', rect, viewportWidth: innerWidth })
+        ? await send({ type: 'classifyRegion', rect, viewportWidth: innerWidth, srcUrl: el.currentSrc || el.src || null })
         : { ok: false, retry: true, error: 'Element not visible' };
       if (host) host.style.visibility = '';
       if (wasPending && !el.hasAttribute(ATTR)) el.setAttribute(ATTR, 'pending');

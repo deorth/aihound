@@ -5,3 +5,4 @@ __pycache__/
 # third-party samples downloaded by `npm run fixtures`
 test/site/fixtures/external/
 server/.venv/
+server/logs/

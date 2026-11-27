@@ -22,7 +22,9 @@ export const DEFAULTS = {
   disabledSites: [],
   sightengine: { apiUser: '', apiSecret: '' },
   hive: { apiKey: '' },
-  custom: { endpoint: 'http://127.0.0.1:8765/detect', headerName: '', headerValue: '' },
+  // sendContext: also send the image and page address (X-AIHound-* headers), so the
+  // endpoint can log where each image came from.
+  custom: { endpoint: 'http://127.0.0.1:8765/detect', headerName: '', headerValue: '', sendContext: true },
 };
 
 // Keys that hold credentials; never handed to content scripts.

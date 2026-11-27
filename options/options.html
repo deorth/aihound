@@ -59,6 +59,7 @@
           <label>URL <input type="url" name="custom.endpoint"></label>
           <label>Header name <input type="text" name="custom.headerName" placeholder="Authorization"></label>
           <label>Header value <input type="password" name="custom.headerValue" autocomplete="off"></label>
+          <label class="row"><input type="checkbox" name="custom.sendContext"> Also send the image and page address (lets the endpoint log where each image came from)</label>
         </fieldset>
         <p class="hint" data-provider="metadata">Only flags media whose metadata declares it AI-generated. Cannot check videos.</p>
         <p class="hint" data-provider="mock">For the local test page in <code>test/</code>. Scores by average colour.</p>

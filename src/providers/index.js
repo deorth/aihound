@@ -49,11 +49,20 @@ export async function hive(blob, s) {
 
 // Any HTTP endpoint that accepts raw image bytes and returns {"score": 0..1}.
 // See server/hf_detector.py for a self-hosted Hugging Face model.
-export async function custom(blob, s) {
-  const { endpoint, headerName, headerValue } = s.custom;
+export async function custom(blob, s, ctx = {}) {
+  const { endpoint, headerName, headerValue, sendContext } = s.custom;
   if (!endpoint) throw new Error('Custom endpoint URL not set (Options page)');
   const headers = { 'Content-Type': blob.type || 'application/octet-stream' };
   if (headerName && headerValue) headers[headerName] = headerValue;
+  if (sendContext) {
+    // Informational only (the server may log them). Header values must be ASCII.
+    const put = (name, v) => { if (v != null && v !== '') headers[name] = headerSafe(String(v)); };
+    put('X-AIHound-Source-Url', ctx.url);
+    put('X-AIHound-Page-Url', ctx.pageUrl);
+    put('X-AIHound-Via', ctx.via);
+    put('X-AIHound-Threshold', s.threshold);
+    put('X-AIHound-Action', s.action);
+  }
   const res = await fetch(endpoint, { method: 'POST', headers, body: blob });
   const data = await readJson(res, 'Custom endpoint');
   if (!res.ok) throw new Error(`Custom endpoint: HTTP ${res.status} ${data.error ?? ''}`.trim());
@@ -75,6 +84,11 @@ export async function mock(blob) {
   for (let i = 0; i < px.length; i += 4) { r += px[i]; g += px[i + 1]; }
   const n = px.length / 4;
   return { score: (r / n - g / n + 255) / 510 };
+}
+
+function headerSafe(v) {
+  if (/^(data|blob):/.test(v)) return v.slice(0, 5) + '...'; // the bytes are already the body
+  return v.replace(/[^\x20-\x7e]/g, (c) => encodeURIComponent(c)).slice(0, 2000);
 }
 
 export const PROVIDERS = { sightengine, hive, custom, mock };
