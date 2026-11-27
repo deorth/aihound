@@ -20,7 +20,7 @@ Detection is pluggable (`src/providers/index.js`); each provider takes an image 
 | **Metadata** (always runs first by default) | Free | Fully local | Reads IPTC `DigitalSourceType`, C2PA AI source types, Stable Diffusion/ComfyUI chunks. Near-zero false positives, but most social sites strip metadata. |
 | **Sightengine** | Free tier, then paid | Images uploaded | Simple API (`genai` model). **Best place to start.** |
 | **Hive** | Paid / enterprise | Images uploaded | Strong reputation for accuracy. Uses the v2 sync API; check Hive's docs for your key type. |
-| **Custom endpoint** | Your hardware | Local | `server/hf_detector.py` runs an open Hugging Face model. Free, but weaker on new generators. |
+| **Custom endpoint** | Your hardware | Local | `server/hf_detector.py` runs an open Hugging Face model (default `haywoodsloan/ai-image-detector-deploy`, the best in `npm run bakeoff`; results in `TODO.md`). Free and private. |
 | **Mock** | — | Local | For testing only: red = AI, green = real. |
 
 Recommendation: start with **Metadata + Sightengine**, and compare against Hive or a local model using the test page.
@@ -30,6 +30,7 @@ Recommendation: start with **Metadata + Sightengine**, and compare against Hive 
 - **`src/content.js`** watches the page for `<img>`/`<video>` elements (MutationObserver + IntersectionObserver), and only checks media near the viewport and at least `minSize` px.
 - **`src/background.js`** (service worker) fetches the image bytes with the extension's host permissions, so CORS doesn't get in the way. It then runs the metadata check, normalises the image (JPEG/PNG/WebP, ≤2048px), and calls the provider. It caches scores per URL, runs at most 4 provider calls at a time, and keeps per-tab badge counts.
 - **Screen-capture fallback:** videos, and images the worker can't fetch (403, login walls, blob URLs it can't read), are scored by cropping the element out of `chrome.tabs.captureVisibleTab`. This works for cross-origin and streamed (MSE) video without downloading it.
+- **On demand:** right-click any image or video and choose **Check with AIHound**. It ignores the size limit and works in both modes; set *When to check* to *Only when I ask* (options or popup) to stop automatic checks, so nothing is uploaded unless you ask. Images that pass show a short green note with the score.
 - **Overlays** are a shadow-DOM sibling of the media element, so site CSS can't break them and they scroll along with the media. Blank mode also blurs the element and pauses videos.
 - Settings, including API keys, are stored in `chrome.storage.local`. API keys are never sent to content scripts.
 

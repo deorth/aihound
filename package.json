@@ -9,6 +9,7 @@
     "fixtures": "python3 test/make_fixtures.py --fetch",
     "serve": "python3 test/serve.py",
     "accuracy": "node test/accuracy.mjs",
-    "detector": "server/.venv/bin/python server/hf_detector.py --port 8765"
+    "detector": "server/.venv/bin/python server/hf_detector.py --port 8765",
+    "bakeoff": "server/.venv/bin/python test/bakeoff.py"
   }
 }

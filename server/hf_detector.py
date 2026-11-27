@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 """Self-hosted detector for AIHound's "Custom endpoint" provider.
 
-Runs an open Hugging Face image classifier locally. Free and private, but open models
-are generally weaker than commercial APIs, especially on newer generators; treat
-the scores as a rough signal.
+Runs an open Hugging Face image classifier locally. Free and private. The default
+model won the comparison in test/bakeoff.py (see TODO.md); pass --model to try others.
 
     uv venv --python 3.12 server/.venv          # PyTorch has no wheels for very new Pythons
     uv pip install --python server/.venv/bin/python -r server/requirements.txt
-    server/.venv/bin/python server/hf_detector.py --model Organika/sdxl-detector --port 8765
+    server/.venv/bin/python server/hf_detector.py --model haywoodsloan/ai-image-detector-deploy --port 8765
 
 Then in AIHound Options: provider = Custom, URL = http://127.0.0.1:8765/detect
 """
@@ -42,7 +41,7 @@ async def detect(request: Request):
 def main():
     global classifier
     ap = argparse.ArgumentParser()
-    ap.add_argument("--model", default="Organika/sdxl-detector")
+    ap.add_argument("--model", default="haywoodsloan/ai-image-detector-deploy")
     ap.add_argument("--port", type=int, default=8765)
     args = ap.parse_args()
     classifier = pipeline("image-classification", model=args.model)

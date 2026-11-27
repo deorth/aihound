@@ -12,12 +12,14 @@ try {
 
 $('enabled').checked = s.enabled;
 $('action').value = s.action;
+$('checkMode').value = s.checkMode;
 $('host').textContent = host || 'this page';
 $('site').disabled = !host;
 $('site').checked = !!host && !s.disabledSites.includes(host);
 
 $('enabled').addEventListener('change', (e) => chrome.storage.local.set({ enabled: e.target.checked }));
 $('action').addEventListener('change', (e) => chrome.storage.local.set({ action: e.target.value }));
+$('checkMode').addEventListener('change', (e) => chrome.storage.local.set({ checkMode: e.target.value }));
 $('site').addEventListener('change', async (e) => {
   const { disabledSites } = await getSettings();
   const next = disabledSites.filter((h) => h !== host);

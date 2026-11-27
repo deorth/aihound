@@ -8,6 +8,10 @@
 //   --no-metadata                                  skip the metadata check (the extension runs it first by default)
 //   --dir test/site/fixtures/external              must contain ai/ and real/ subfolders
 //   --json                                         print raw results as JSON
+//   --concurrency N                                parallel requests (default: 1 for cloud providers, 4 otherwise)
+//   --delay MS                                     minimum gap between request starts (default: 1500 for cloud, 0 otherwise)
+//
+// Throttled requests (HTTP 429, "rate limit", "too many requests") are retried with backoff.
 //
 // Credentials come from the environment:
 //   CUSTOM_ENDPOINT (default http://127.0.0.1:8765/detect), CUSTOM_HEADER_NAME, CUSTOM_HEADER_VALUE,
@@ -31,8 +35,13 @@ const { values: opt } = parseArgs({
     'no-metadata': { type: 'boolean', default: false },
     dir: { type: 'string', default: new URL('./site/fixtures/external/', import.meta.url).pathname },
     json: { type: 'boolean', default: false },
+    concurrency: { type: 'string' },
+    delay: { type: 'string' },
   },
 });
+const cloud = ['sightengine', 'hive'].includes(opt.provider);
+const concurrency = Math.max(1, Number(opt.concurrency ?? (cloud ? 1 : 4)) | 0);
+const delayMs = Math.max(0, Number(opt.delay ?? (cloud ? 1500 : 0)));
 const threshold = Number(opt.threshold);
 const useMetadata = !opt['no-metadata'];
 const env = process.env;
@@ -72,30 +81,63 @@ if (!nAi || !nReal) {
   die(`need samples in both ${join(opt.dir, 'ai')}/ and ${join(opt.dir, 'real')}/ (found ${nAi} ai, ${nReal} real).\n` +
       'Add "ai <url>" / "real <url>" lines to test/real-samples.txt and run: python3 test/make_fixtures.py --fetch');
 }
-if (!opt.json) console.error(`Scoring ${samples.length} samples (${nAi} ai, ${nReal} real) with ${opt.provider}${useMetadata ? ' + metadata' : ''}…`);
+if (!opt.json) console.error(`Scoring ${samples.length} samples (${nAi} ai, ${nReal} real) with ${opt.provider}${useMetadata ? ' + metadata' : ''}` +
+  ` (${concurrency} at a time${delayMs ? `, ${delayMs} ms apart` : ''})…`);
 
 // ---- score -----------------------------------------------------------------
 
 async function score(s) {
   const bytes = await readFile(s.path);
   const blob = new Blob([bytes], { type: TYPES[extname(s.path).toLowerCase()] });
-  const t0 = performance.now();
   try {
     if (useMetadata || opt.provider === 'metadata') {
       const detail = await detectMetadata(blob);
       if (detail) return { ...s, score: 1, source: 'metadata', detail, ms: 0 };
     }
     if (opt.provider === 'metadata') return { ...s, score: 0, source: 'metadata', ms: 0 };
-    const { score } = await PROVIDERS[opt.provider](blob, settings);
-    return { ...s, score: Math.min(1, Math.max(0, score)), source: opt.provider, ms: Math.round(performance.now() - t0) };
+    let ms = 0;
+    const { score } = await throttled(async () => {
+      const t0 = performance.now(); // time the request only, not the spacing wait
+      const r = await PROVIDERS[opt.provider](blob, settings);
+      ms = Math.round(performance.now() - t0);
+      return r;
+    });
+    return { ...s, score: Math.min(1, Math.max(0, score)), source: opt.provider, ms };
   } catch (err) {
     return { ...s, error: err.message };
   }
 }
 
+// Space request starts at least delayMs apart (across all workers) and retry throttled ones.
+let nextSlot = 0;
+async function spaced() {
+  const now = Date.now();
+  const at = Math.max(now, nextSlot);
+  nextSlot = at + delayMs;
+  if (at > now) await sleep(at - now);
+}
+const THROTTLED = /\b429\b|rate.?limit|too many|throttl|concurren/i;
+async function throttled(call) {
+  for (let attempt = 0; ; attempt++) {
+    await spaced();
+    try {
+      return await call();
+    } catch (err) {
+      if (attempt >= 5 || !THROTTLED.test(err.message)) throw err;
+      const wait = Math.max(delayMs, 1000) * 2 ** (attempt + 1);
+      if (!opt.json) console.error(`  throttled (${err.message}); retrying in ${(wait / 1000).toFixed(1)}s`);
+      nextSlot = Math.max(nextSlot, Date.now() + wait); // hold back the other workers too
+      await sleep(wait);
+    }
+  }
+}
+function sleep(ms) {
+  return new Promise((r) => setTimeout(r, ms));
+}
+
 const results = new Array(samples.length);
 let next = 0;
-await Promise.all(Array.from({ length: 4 }, async () => {
+await Promise.all(Array.from({ length: concurrency }, async () => {
   while (next < samples.length) {
     const i = next++;
     results[i] = await score(samples[i]);

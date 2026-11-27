@@ -2,6 +2,8 @@
 
 export const DEFAULTS = {
   enabled: true,
+  // 'auto': check media as it scrolls into view. 'manual': only via the right-click menu.
+  checkMode: 'auto',
   // 'sightengine' | 'hive' | 'custom' | 'metadata' | 'mock'
   provider: 'sightengine',
   // Check embedded provenance (IPTC / C2PA / generator metadata) before calling the provider.

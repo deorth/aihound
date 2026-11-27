@@ -3,3 +3,5 @@ uvicorn
 transformers
 torch
 pillow
+# only for test/bakeoff.py
+scikit-learn

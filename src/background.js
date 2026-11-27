@@ -23,6 +23,16 @@ const ready = chrome.storage.session.get(['cache', 'stats']).then((r) => {
 
 chrome.runtime.onInstalled.addListener(() => {
   chrome.action.setBadgeBackgroundColor({ color: '#d7263d' });
+  // 'page' covers images under transparent overlays (common on social sites), which
+  // don't get the image context; the content script looks under the cursor.
+  chrome.contextMenus.create({ id: 'check', title: 'Check with AIHound', contexts: ['image', 'video', 'page', 'link'] });
+});
+
+chrome.contextMenus.onClicked.addListener((info, tab) => {
+  if (info.menuItemId !== 'check' || tab?.id == null) return;
+  chrome.tabs
+    .sendMessage(tab.id, { type: 'checkNow', srcUrl: info.srcUrl ?? null }, { frameId: info.frameId ?? 0 })
+    .catch(() => {}); // no content script (browser pages, or tabs opened before install)
 });
 
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {

@@ -199,6 +199,9 @@ def fetch():
             # "ai <url>" / "real <url>"; a bare URL goes in unlabelled (shown on the page, not scored)
             entries.append((parts[0], parts[1]) if parts[0] in ("ai", "real") and len(parts) > 1 else ("", parts[0]))
     for label, url in entries:
+        if not url.startswith(("http://", "https://")):
+            print(f"skipping malformed line: {label} {url}".strip())
+            continue
         name = urllib.parse.unquote(url.split("?")[0].rstrip("/").rsplit("/", 1)[-1])
         folder = EXTERNAL / label if label else EXTERNAL
         folder.mkdir(parents=True, exist_ok=True)
@@ -223,6 +226,9 @@ def fetch():
                 wait = int(e.headers.get("Retry-After") or 5 * 2 ** attempt)
                 print(f"  rate limited, waiting {wait}s")
                 time.sleep(wait)
+            except (urllib.error.URLError, TimeoutError, OSError) as e:
+                print(f"  failed: {e}")
+                break
         time.sleep(1)  # be polite to the host
 
 

@@ -12,6 +12,12 @@
       <section>
         <h2>General</h2>
         <label class="row"><input type="checkbox" name="enabled"> Enabled</label>
+        <label class="row">When to check:
+          <select name="checkMode">
+            <option value="auto">Automatically, as media scrolls into view</option>
+            <option value="manual">Only when I ask (right-click › Check with AIHound)</option>
+          </select>
+        </label>
         <label class="row">When media looks AI-generated:
           <select name="action">
             <option value="watermark">Watermark it</option>
