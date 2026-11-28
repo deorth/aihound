@@ -78,6 +78,8 @@ Because you started the detector with `--log-dir server/logs`, it keeps a copy o
 
 The detector can't explain *why* it gave a score. It learned from many example pictures and reports a single likelihood, the same way a spam filter can't list its reasons. Treat its score as a hint, not proof: it gets roughly 1 in 20 real photos wrong, and misses about 1 in 5 AI pictures.
 
+**Optional: a second opinion.** Start the detector with `--ensemble clip` added to the end of the Step 5 command. It then also asks a second detector and combines the two answers. In our tests this caught more AI pictures with fewer false alarms, but it is more cautious, so in **Options** lower the threshold to **60%**. It downloads another 1.7 GB the first time. The log then shows both detectors' scores.
+
 To stop keeping copies, start the detector without `--log-dir server/logs`. To clear the history, delete the `server/logs` folder.
 
 ### If something doesn't work
@@ -103,7 +105,7 @@ Detection is pluggable (`src/providers/index.js`); each provider takes an image 
 | **Metadata** (always runs first by default) | Free | Fully local | Reads IPTC `DigitalSourceType`, C2PA AI source types, Stable Diffusion/ComfyUI chunks. Near-zero false positives, but most social sites strip metadata. |
 | **Sightengine** | Free tier, then paid | Images uploaded | Simple API (`genai` model). **Best place to start.** |
 | **Hive** | Paid / enterprise | Images uploaded | Strong reputation for accuracy. Uses the v2 sync API; check Hive's docs for your key type. |
-| **Custom endpoint** | Your hardware | Local | `server/hf_detector.py` runs an open Hugging Face model (default `haywoodsloan/ai-image-detector-deploy`, the best in `npm run bakeoff`; results in `TODO.md`). Free and private. `npm run detector:log` also saves each checked image and its scores, browsable at `http://127.0.0.1:8765/log`. |
+| **Custom endpoint** | Your hardware | Local | `server/hf_detector.py` runs an open Hugging Face model (default `haywoodsloan/ai-image-detector-deploy`, the best in `npm run bakeoff`; results in `TODO.md`). Free and private. `npm run detector:log` also saves each checked image and its scores, browsable at `http://127.0.0.1:8765/log`. `--ensemble clip` (`npm run detector:ensemble`) combines it with a CLIP-based layer trained by `npm run train-ensemble`; use a ~60% threshold. |
 | **Mock** | — | Local | For testing only: red = AI, green = real. |
 
 Recommendation: start with **Metadata + Sightengine**, and compare against Hive or a local model using the test page.
